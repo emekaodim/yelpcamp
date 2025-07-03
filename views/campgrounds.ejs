@@ -1,0 +1,38 @@
+<%- include ('partials/header') %>
+
+<div class="container mt-5">
+  <header class="jumbotron text-white p-4 rounded" style="background-color: #3e2fc1;">
+    <div class="text-center">
+      <h1 class="display-5">LAGOS CAMPGROUNDS</h1>
+      <p class="lead mb-3">Welcome to the best campgrounds in Lagos</p>
+      <a class="btn btn-outline-light btn-sm" href="/campgrounds/new">
+        ➕ Add a new campground
+      </a>
+    </div>
+  </header>
+
+  <h2 class="my-4 text-center">Available Campgrounds</h2>
+
+  <div class="row">
+    <% campgrounds.forEach(function(campground) { %>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card shadow-sm h-100">
+          <img 
+            src="<%= campground.image %>" 
+            class="card-img-top img-fluid" 
+            alt="<%= campground.name %>" 
+            style="height: 200px; object-fit: cover;"
+          >
+          <div class="card-body text-center">
+            <h5 class="card-title mb-2"><%= campground.name %></h5>
+             <p>
+            <a href="/campgrounds/<%=campground._id%>" class="btn btn-primary btn-sm">More info</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
+
+<%- include ('partials/footer') %>

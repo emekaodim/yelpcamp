@@ -1,0 +1,23 @@
+<%- include ('partials/header') %>
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <img 
+      src="<%= campground.image %>" 
+      class="card-img-top" 
+      alt="<%= campground.name %>" 
+      style="height: 400px; object-fit: cover;"
+    >
+
+    <div class="card-body">
+      <h2 class="card-title mb-3 text-center"><%= campground.name %></h2>
+      <p class="card-text fs-5 text-muted"><%=campground.description%></p>
+    </div>
+
+    <div class="card-footer text-center">
+      <a href="/campgrounds" class="btn btn-outline-secondary">← Back to Campgrounds</a>
+    </div>
+  </div>
+</div>
+
+
+<%- include ('partials/footer') %>

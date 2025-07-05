@@ -3,11 +3,14 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const campground = require("./models/compounds")
+const seedDB = require("./seeds")
+
 
 const host = "localhost";
 const port = 5000;
 
 // Middleware
+seedDB();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");

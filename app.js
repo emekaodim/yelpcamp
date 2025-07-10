@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const campground = require("./models/compounds")
-const seedDB = require("./seeds")
+const seedDB = require("./seeds");
 
 
 const host = "localhost";

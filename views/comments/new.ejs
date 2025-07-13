@@ -1,4 +1,4 @@
-<% include('partials/header') %>
+<% include('../partials/header') %>
 <style>
 body {
         font-family: Arial, sans-serif;
@@ -71,18 +71,15 @@ body {
     </style>
 
 <div class="form-container">
-  <h1>Create a New Campground</h1>
+  <h1>Add new comments</h1>
 
-  <form action="/campgrounds" method="POST">
-    <input type="text" name="name" placeholder="Name" required />
-    <input type="text" name="image" placeholder="Image URL" required />
-    <textarea name="description" placeholder="About" rows="5" required></textarea>
-    <input  type="submit" value="Submit!" />
-  </form>
+<form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+  <input type="text" name="comment[author]" placeholder="Your Name" required />
+  <textarea name="comment[text]" placeholder="Your Comment" rows="5" required></textarea>
+  <input type="submit" value="Submit!" />
+</form>
 
-  <a href="/campgrounds">Go Back</a>
+  <a href="/campgrounds/<%= campground._id %>">Go Back</a>
 </div>
 
-
-
-<% include('partials/footer') %>
+<% include('../partials/footer') %>

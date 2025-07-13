@@ -2,47 +2,23 @@ const mongoose = require("mongoose");
 const Campground = require("./models/compounds");
 const Comment = require("./models/comments");
 
-const seedData = [
-  {
-    name: "Lagos Continental Hotels",
-      image: "https://ik.imgkit.net/3vlqs5axxjf/external/https://media.iceportal.com/141209/photos/72581446_XL.jpg?tr=w-360%2Ch-379%2Cfo-auto",
-      description: "The Lagos Continental Hotel, is a 5-Star Hotel located at Plot 52A, Kofo Abayomi Street, Victoria Island, within the heart of the central business district of Lagos Nigeria. Our prime location makes the Hotel ideal for both business and leisure stays",
-  },
-  {
-    name: "Transcorp Hilton Hotel",
-    image: "https://lh3.googleusercontent.com/proxy/HBVu-Anzo91rlVMbEtqdLnjJTNQ8xe7SaWW4MdopEm9vNc6SK78i3TWG3xdTQLi1VsbQOesRY0PqZTNZuSXNAfJ5WOmMQZY3GvMVCabi5EPBPFFg1MEtnQjVCrLJ-8QWYHRyItA3iB5XH3TvtJcwGhyRTEgxDdM=s1360-w1360-h1020-rw",
-    description: "A dry desert campground with stunning sunset.",
-  },
-];
-
 async function seedDB() {
-  try {
-    // Clear database
-    await Campground.deleteMany({});
-    console.log("Campgrounds removed.");
+  await Campground.deleteMany({});
+  const camp = await Campground.create({
+    name: "Lagos Continental Hotels",
+    image:
+      "https://ik.imgkit.net/3vlqs5axxjf/external/https://media.iceportal.com/141209/photos/72581446_XL.jpg?tr=w-360%2Ch-379%2Cfo-auto",
+    description: "Luxury hotel in Victoria Island, Lagos.",
+  });
 
-    await Comment.deleteMany({});
-    console.log("Comments removed.");
+  const comment = await Comment.create({
+    text: "Amazing location and beautiful view!",
+    author: "John Doe",
+  });
 
-    // Loop through seed data
-    for (const seed of seedData) {
-      const campground = await Campground.create(seed);
-      console.log(`Campground created: ${campground.name}`);
-
-      const comment = await Comment.create({
-        text: "This place is great, but I wish there was internet.",
-        author: "KING",
-      });
-
-      campground.comments.push(comment);
-      await campground.save();
-      console.log(`Comment added to: ${campground.name}`);
-    }
-
-    console.log("Database seeding complete.");
-  } catch (err) {
-    console.error("Seeding failed:", err);
-  }
+  camp.comments.push(comment);
+  await camp.save();
+  console.log("Database seeded!");
 }
 
 module.exports = seedDB;

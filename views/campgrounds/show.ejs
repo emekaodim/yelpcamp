@@ -1,0 +1,51 @@
+<%- include ('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <!-- Campground Image -->
+    <img 
+      src="<%= campground.image %>" 
+      class="card-img-top" 
+      alt="<%= campground.name %>" 
+      style="height: 400px; object-fit: cover;"
+    >
+
+    <!-- Campground Details -->
+    <div class="card-body">
+      <h2 class="card-title text-center mb-3"><%= campground.name %></h2>
+      <p class="card-text fs-5 text-muted text-center"><%= campground.description %></p>
+
+      <!-- Add Comment Button -->
+      <div class="text-center mt-4">
+        <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">
+          Add New Comment
+        </a>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="mt-5">
+        <h4 class="text-center mb-4">Comments</h4>
+
+        <% if (campground.comments.length > 0) { %>
+          <div class="list-group">
+            <% campground.comments.forEach(comment => { %>
+              <div class="list-group-item">
+                <p class="mb-1"><%= comment.text %></p>
+                <small class="text-muted">— <%= comment.author || "Anonymous" %></small>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <p class="text-muted text-center">No comments yet. Be the first to comment!</p>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer text-center">
+      <a href="/campgrounds" class="btn btn-outline-secondary">← Back to Campgrounds</a>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer') %>

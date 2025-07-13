@@ -1,0 +1,88 @@
+<% include('../partials/header') %>
+<style>
+body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding-top: 50px;
+      }
+
+      .form-container {
+        background: white;
+        padding: 20px 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 14px;
+      }
+
+      textarea{
+        width: auto 100px;;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 14px;
+      }
+
+      input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 0;
+        width: 100%;
+        border: none;
+        border-radius: 3px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      a {
+        display: inline-block;
+        margin-top: 15px;
+        text-decoration: none;
+        color: #007bff;
+        font-size: 14px;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+
+<div class="form-container">
+  <h1>Create a New Campground</h1>
+
+  <form action="/campgrounds" method="POST">
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="text" name="image" placeholder="Image URL" required />
+    <textarea name="description" placeholder="About" rows="5" required></textarea>
+    <input  type="submit" value="Submit!" />
+  </form>
+
+  <a href="/campgrounds">Go Back</a>
+</div>
+
+
+
+<% include('../partials/footer') %>

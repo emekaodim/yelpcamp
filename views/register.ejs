@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+  <div class="card mx-auto shadow p-4" style="max-width: 400px;">
+    <h2 class="text-center mb-4">Sign Up</h2>
+    <form action="/register" method="POST">
+      <div class="mb-3">
+        <input type="text" name="username" class="form-control" placeholder="Username" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+      </div>
+      <button class="btn btn-primary w-100">Sign Up</button>
+    </form>
+    <div class="text-center mt-3">
+      <a href="/login">Already have an account? Login here</a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

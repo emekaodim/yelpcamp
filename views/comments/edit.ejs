@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white">
+      <h3>Edit Comment</h3>
+    </div>
+    <div class="card-body">
+      <form action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+        <div class="mb-3">
+          <label for="commentText" class="form-label">Comment</label>
+          <textarea name="comment[text]" id="commentText" class="form-control" rows="4" required><%= comment.text %></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Update Comment</button>
+        <a href="/campgrounds/<%= campground_id %>" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

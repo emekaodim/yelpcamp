@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Campground = require("./models/compounds");
-const Comment = require("./models/comments");
+const Campground = require("../models/compounds");
+const Comment = require("../models/comments");
 
 async function seedDB() {
   await Campground.deleteMany({});

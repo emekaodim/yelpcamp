@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white text-center">
+          <h3>Edit Campground</h3>
+        </div>
+
+        <div class="card-body">
+          <form 
+            action="/campgrounds/<%= campground._id %>/?_method=PUT" 
+            method="POST"
+          >
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Campground Name</label>
+              <input 
+                type="text" 
+                name="name" 
+                class="form-control" 
+                id="name" 
+                value="<%= campground.name %>" 
+                required
+              >
+            </div>
+
+            <!-- Image -->
+            <div class="mb-3">
+              <label for="image" class="form-label">Image URL</label>
+              <input 
+                type="text" 
+                name="image" 
+                class="form-control" 
+                id="image" 
+                value="<%= campground.image %>" 
+                required
+              >
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea 
+                name="description" 
+                class="form-control" 
+                id="description" 
+                rows="5" 
+                required
+              ><%= campground.description %></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-success me-2">Update</button>
+              <a href="/campgrounds/<%= campground._id %>" class="btn btn-secondary">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

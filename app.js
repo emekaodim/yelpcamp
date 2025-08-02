@@ -14,9 +14,18 @@ const commentRoutes    = require("./routes/comments"),
 
 const User = require("./models/user");
 const seedDB = require("./views/seeds");
+const dbUrl = process.env.DATABASE_URL || 'mongodb://localhost:27017/yelp-camp';
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
+app.use(session({
+  secret,
+  resave: false,
+  saveUninitialized: true,
+}));
+
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/yelp_camp");
+mongoose.connect(dbUrl,"mongodb://localhost:27017/yelp_camp");
 mongoose.connection.on("error", (err) => {
   console.error("MongoDB connection error:", err);
 });
@@ -52,7 +61,7 @@ app.use(commentRoutes);
 
 // Start server
 const host = "localhost";
-const port = 5000;
-app.listen(port, host, () => {
-  console.log("Listening on http://" + host + ":" + port);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

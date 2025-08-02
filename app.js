@@ -24,15 +24,15 @@ app.use(session({
 
 
 // Connect to MongoDB
-const dbURL = process.env.DATABASE_URL || "mongodb://localhost:27017/yelp_camp";
+const dbUrl = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp";
 
-mongoose.connect(dbURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-mongoose.connection.on("error", (err) => {
-  console.error("MongoDB connection error:", err);
-});
+mongoose.connect(dbUrl)
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+  });
 
 // Middleware
 // seedDB();

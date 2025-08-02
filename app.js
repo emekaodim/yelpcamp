@@ -14,7 +14,6 @@ const commentRoutes    = require("./routes/comments"),
 
 const User = require("./models/user");
 const seedDB = require("./views/seeds");
-const dbUrl = process.env.DATABASE_URL || 'mongodb://localhost:27017/yelp-camp';
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 app.use(session({
@@ -25,7 +24,12 @@ app.use(session({
 
 
 // Connect to MongoDB
-mongoose.connect(dbUrl,"mongodb://localhost:27017/yelp_camp");
+const dbURL = process.env.DATABASE_URL || "mongodb://localhost:27017/yelp_camp";
+
+mongoose.connect(dbURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 mongoose.connection.on("error", (err) => {
   console.error("MongoDB connection error:", err);
 });

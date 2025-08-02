@@ -7,21 +7,25 @@ const campgroundSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  price: {
+    type: Number,
+    required: true,
+  },
   image: String,
   description: String,
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"User"
+      ref: "User"
     },
-    username : String 
+    username: String
   },
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ],
+      ref: "Comment"
+    }
+  ]
 });
 
 // Export the model

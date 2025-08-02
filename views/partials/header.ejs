@@ -51,6 +51,34 @@
         </div>
       </div>
     </nav>
+      <% if (flash && flash.success) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <%= flash.success %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+
+      <% if (flash && flash.error) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= flash.error %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+
+      <% if (flash && flash.warning) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <%= flash.warning %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+
+      <% if (flash && flash.info) { %>
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          <%= flash.info %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

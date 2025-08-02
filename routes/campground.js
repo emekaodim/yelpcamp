@@ -3,7 +3,6 @@ const router = express.Router();
 const Campground = require("../models/compounds");
 const middleware = require("../middleware");
 
-
 // INDEX - Show all campgrounds
 router.get("/campgrounds", async (req, res) => {
   try {
@@ -22,14 +21,13 @@ router.get("/campgrounds/new", middleware.isLoggedIn, (req, res) => {
 
 // CREATE - Add new campground to database
 router.post("/campgrounds", middleware.isLoggedIn, async (req, res) => {
-  const { name, image, description } = req.body;
-
+  const { name, image, price, description } = req.body;
   const author = {
     id: req.user._id,
     username: req.user.username,
   };
 
-  const newCampground = { name, image, description, author };
+  const newCampground = { name, image, price, description, author };
 
   try {
     await Campground.create(newCampground);
@@ -53,7 +51,7 @@ router.get("/campgrounds/:id", async (req, res) => {
 
     res.render("campgrounds/show", {
       campground: foundCampground,
-      currentUser: req.user // Needed to show author info & edit/delete buttons
+      currentUser: req.user
     });
   } catch (err) {
     console.error("Error retrieving campground:", err);
@@ -65,6 +63,9 @@ router.get("/campgrounds/:id", async (req, res) => {
 router.get("/campgrounds/:id/edit", middleware.checkCampgroundOwnership, async (req, res) => {
   try {
     const campground = await Campground.findById(req.params.id);
+    if (!campground) {
+      return res.status(404).send("Campground not found.");
+    }
     res.render("campgrounds/edit", { campground });
   } catch (err) {
     console.error("Error loading edit form:", err);
@@ -74,9 +75,15 @@ router.get("/campgrounds/:id/edit", middleware.checkCampgroundOwnership, async (
 
 // UPDATE - Save changes to campground
 router.put("/campgrounds/:id", middleware.checkCampgroundOwnership, async (req, res) => {
-  const { name, image, description } = req.body;
+  const { name, image, price, description } = req.body;
+
   try {
-    await Campground.findByIdAndUpdate(req.params.id, { name, image, description });
+    await Campground.findByIdAndUpdate(req.params.id, {
+      name,
+      image,
+      price,
+      description
+    });
     res.redirect(`/campgrounds/${req.params.id}`);
   } catch (err) {
     console.error("Error updating campground:", err);

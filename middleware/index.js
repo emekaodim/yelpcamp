@@ -1,9 +1,9 @@
-const Campground = require("../models/compounds"); // Ensure models are required
+const Campground = require("../models/compounds");
 const Comment = require("../models/comments");
 
 const middlewareObj = {};
 
-// Middleware to check campground ownership
+// ✅ Middleware: Check if user owns the campground
 middlewareObj.checkCampgroundOwnership = async (req, res, next) => {
   if (req.isAuthenticated()) {
     try {
@@ -13,18 +13,21 @@ middlewareObj.checkCampgroundOwnership = async (req, res, next) => {
       if (campground.author.id.equals(req.user._id)) {
         return next();
       } else {
-        return res.status(403).send("You do not have permission to do that.");
+        req.flash("error", "You do not have permission to do that.");
+        return res.redirect("back");
       }
     } catch (err) {
       console.error(err);
-      return res.status(500).send("Error checking campground ownership.");
+      req.flash("error", "An error occurred.");
+      return res.redirect("back");
     }
   } else {
+    req.flash("error", "Please login first.");
     return res.redirect("/login");
   }
 };
 
-// Middleware to check comment ownership
+// ✅ Middleware: Check if user owns the comment
 middlewareObj.checkCommentOwnership = async (req, res, next) => {
   if (req.isAuthenticated()) {
     try {
@@ -34,21 +37,43 @@ middlewareObj.checkCommentOwnership = async (req, res, next) => {
       if (comment.author.id.equals(req.user._id)) {
         return next();
       } else {
-        return res.status(403).send("Permission denied.");
+        req.flash("error", "Permission denied.");
+        return res.redirect("back");
       }
     } catch (err) {
       console.error(err);
-      return res.status(500).send("Error checking comment ownership.");
+      req.flash("error", "An error occurred.");
+      return res.redirect("back");
     }
   } else {
+    req.flash("error", "Please login first.");
     return res.redirect("/login");
   }
 };
 
-// Middleware to check if user is logged in
+// ✅ Middleware: Check if user is logged in
 middlewareObj.isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) return next();
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  req.flash("error", "Please login first");
   res.redirect("/login");
+};
+
+middlewareObj.flashMiddleware = (req, res, next) => {
+  // Make the current user available to all templates
+  res.locals.currentUser = req.user;
+
+  // Attach flash messages to res.locals for template access
+  res.locals.flash = req.session.flash;
+  delete req.session.flash;
+
+  // Custom req.flash function
+  req.flash = (type, message) => {
+    req.session.flash = { [type]: message };
+  };
+
+  next();
 };
 
 module.exports = middlewareObj;

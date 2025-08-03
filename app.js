@@ -24,15 +24,24 @@ app.use(session({
 
 
 // Connect to MongoDB
-const dbUrl = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp";
+// const dbUrl = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp";
 
-mongoose.connect(dbUrl)
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
-  });
+// mongoose.connect(dbUrl)
+//   .then(() => {
+//     console.log("MongoDB connected");
+//   })
+//   .catch((err) => {
+//     console.error("MongoDB connection error:", err);
+//   });
+
+if (!process.env.DATABASEURL) {
+  throw new Error("DATABASEURL environment variable not set!");
+}
+
+mongoose.connect(process.env.DATABASEURL)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
 
 // Middleware
 // seedDB();

@@ -35,13 +35,40 @@ const dbUrl = process.env.DATABASEURL
 //     console.error("MongoDB connection error:", err);
 //   });
 
-if (!process.env.DATABASEURL) {
-  throw new Error("DATABASEURL environment variable not set!");
-}
+// if (!process.env.DATABASEURL) {
+//   throw new Error("DATABASEURL environment variable not set!");
+// // }
 
-mongoose.connect(process.env.DATABASEURL)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+// mongoose.connect(mongoose.connect("mongodb+srv://emekaodim1:Treasuretree1%40@yelpcamp.tfggvg6.mongodb.net/yelpcamp?retryWrites=true&w=majority")
+// )
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((err) => console.error("MongoDB connection error:", err));
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://emekaodim1:<db_password>@yelpcamp.tfggvg6.mongodb.net/?retryWrites=true&w=majority&appName=yelpcamp";
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
 
 
 // Middleware

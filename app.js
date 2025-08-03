@@ -24,7 +24,8 @@ app.use(session({
 
 
 // Connect to MongoDB
-// const dbUrl = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp";
+const dbUrl = process.env.DATABASEURL 
+// || "mongodb://localhost:27017/yelp_camp";
 
 // mongoose.connect(dbUrl)
 //   .then(() => {

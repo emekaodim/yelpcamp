@@ -68,6 +68,7 @@ app.use(commentRoutes);
 const host = "localhost"; // use "0.0.0.0" for production
 const port = process.env.PORT || 3000;
 
-app.listen(port, host, () => {
-  console.log(`🚀 Server running at http://${host}:${port}`);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`🚀 Server running at port ${port}`);
 });
+
